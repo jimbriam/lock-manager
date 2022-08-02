@@ -2088,28 +2088,6 @@ def userAskAlexaPage() {
   }
 }
 
-def timeZone() {
-  def zone
-  if(location.timeZone) {
-    zone = location.timeZone
-  } else {
-    zone = TimeZone.getDefault()
-  }
-  return zone
-}
-
-public smartThingsDateFormat() { "yyyy-MM-dd'T'HH:mm:ss.SSSZ" }
-
-public humanReadableStartDate() {
-  new Date().parse(smartThingsDateFormat(), startTime).format('h:mm a', timeZone(startTime))
-}
-public humanReadableEndDate() {
-  new Date().parse(smartThingsDateFormat(), endTime).format('h:mm a', timeZone(endTime))
-}
-
-def readableDateTime(date) {
-  new Date().parse(smartThingsDateFormat(), date.format(smartThingsDateFormat(), timeZone())).format("EEE, MMM d yyyy 'at' h:mma", timeZone())
-}
 
 
 def getLockUsage(lock_id) {
@@ -2303,6 +2281,45 @@ def userLockEnabled(lockId) {
     return true
   }
 }
+def isCorrectMode() {
+  if (activeModes) {
+    // mode check is on
+    if (activeModes.contains(location.mode)) {
+      // we're in a right mode
+      return true
+    } else {
+      // we're in the wrong mode
+      return false
+    }
+  } else {
+    // mode check is off
+    return true
+  }
+}
+#region TIME
+	def timeZone() {
+  def zone
+  if(location.timeZone) {
+    zone = location.timeZone
+  } else {
+    zone = TimeZone.getDefault()
+  }
+  return zone
+}
+
+public smartThingsDateFormat() { "yyyy-MM-dd'T'HH:mm:ss.SSSZ" }
+
+public humanReadableStartDate() {
+  new Date().parse(smartThingsDateFormat(), startTime).format('h:mm a', timeZone(startTime))
+}
+public humanReadableEndDate() {
+  new Date().parse(smartThingsDateFormat(), endTime).format('h:mm a', timeZone(endTime))
+}
+
+def readableDateTime(date) {
+  new Date().parse(smartThingsDateFormat(), date.format(smartThingsDateFormat(), timeZone())).format("EEE, MMM d yyyy 'at' h:mma", timeZone())
+}
+
 
 def isCorrectDay() {
   def today = new Date().format("EEEE", timeZone())
@@ -2350,21 +2367,6 @@ def isInCalendarRange() {
   }
 }
 
-def isCorrectMode() {
-  if (activeModes) {
-    // mode check is on
-    if (activeModes.contains(location.mode)) {
-      // we're in a right mode
-      return true
-    } else {
-      // we're in the wrong mode
-      return false
-    }
-  } else {
-    // mode check is off
-    return true
-  }
-}
 
 def isInScheduledTime() {
   def now = rightNow()
