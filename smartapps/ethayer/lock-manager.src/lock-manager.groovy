@@ -178,7 +178,14 @@ def initializeMain() {
 	def numberOfLocks = lockApps.size()
 	log.debug("there are " + numberOfLocks + " locks")
   
+  // global variables: state, settings
+	//TODO: store users, locks, lockSlots, userSlots inside state
+	state.users = []
+	state.locks = []
+	state.lockSlots = []
+	state.userSlots = []
 	state.setupCompleted = true
+	state.appVersion = "2.1.3"
 
   subscribe(location, "mode", locationHandler)
 }
