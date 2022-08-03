@@ -2589,8 +2589,8 @@ def getLockUserInfo(lock) {
   para
 }
 
+#region ALEXA
 // User Ask Alexa
-
 def userAlexaSettings() {
   if (alexaAccess || alexaLock || alexaAccessStart || alexaAccessEnd || alexaStartTime || alexaEndTime) {
     // user has it's own settings!
@@ -2643,7 +2643,7 @@ def sendAskAlexaUser(message) {
                     descriptionText: message,
                     unit: "User//${userName}")
 }
-
+#endregion
 #region KEYPAD
 def installedKeypad() {
   debugger("Keypad Installed with settings: ${settings}")
