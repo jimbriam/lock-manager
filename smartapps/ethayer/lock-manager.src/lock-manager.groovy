@@ -169,10 +169,15 @@ def updatedMain() {
   unsubscribe()
   initializeMain()
 }
+/**
+InitalizeMain
+**/
 
 def initializeMain() {
-  def children = getLockApps()
-  log.debug "there are ${children.size()} locks"
+	log.debug("initializeMain")
+  def lockApps = getLockApps()
+  def numberOfLocks = lockApps.size()
+  log.debug("there are " + numberOfLocks + " locks")
 
   state.appVersion = "2.1.3"
 	state.setupCompleted = true
