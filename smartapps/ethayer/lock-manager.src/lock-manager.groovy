@@ -722,6 +722,7 @@ def lockInitialize() {
   queSetupLockData()
 }
 
+/* Check if a lock is unique*/
 
 def isUniqueLock() {
   def unique = true
