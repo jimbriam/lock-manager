@@ -94,7 +94,7 @@ def appPageWizard(params) {
       apiSetupPage()
       break
     default:
-      mainLangingPage()
+      mainLandingPage()
       break
   }
 }
@@ -194,7 +194,7 @@ def initializeMain() {
   subscribe(location, "mode", locationHandler)
 }
 
-def mainLangingPage() {
+def mainLandingPage() {
   if (state.setupCompleted) {
     mainPage()
   } else {
