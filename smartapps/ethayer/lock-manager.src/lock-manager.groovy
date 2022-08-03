@@ -172,14 +172,12 @@ def updatedMain() {
 /**
 InitalizeMain
 **/
-
 def initializeMain() {
 	log.debug("initializeMain")
-  def lockApps = getLockApps()
-  def numberOfLocks = lockApps.size()
-  log.debug("there are " + numberOfLocks + " locks")
-
-  state.appVersion = "2.1.3"
+	def lockApps = getLockApps()
+	def numberOfLocks = lockApps.size()
+	log.debug("there are " + numberOfLocks + " locks")
+  
 	state.setupCompleted = true
 
   subscribe(location, "mode", locationHandler)
