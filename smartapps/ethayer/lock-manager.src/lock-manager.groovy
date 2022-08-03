@@ -165,7 +165,7 @@ def installedMain() {
 }
 
 def updatedMain() {
-  log.debug "Main Updated with settings: ${settings}"
+  log.debug("Main Updated with settings: ${settings}")
   unsubscribe()
   initializeMain()
 }
