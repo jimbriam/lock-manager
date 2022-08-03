@@ -65,6 +65,7 @@ preferences {
 
 def appPageWizard(params) {
   def appType = state.appType
+	log.debug("appPageWizard params: ", appType.toString())
 
   if (!appType) {
     if (params.type) {
@@ -626,7 +627,8 @@ def setAccess() {
 }
 
 def locationHandler(evt) {
-  setAccess()
+	log.debug("locationHandler")
+	setAccess()
 }
 
 def theNewChild() {
@@ -676,6 +678,7 @@ def debuggerOn() {
 }
 
 def theAppType() {
+	log.debug("theAppType")
   if (parent) {
     return state.appType
   } else {
@@ -709,6 +712,7 @@ def lockUpdated() {
 }
 
 def lockInitialize() {
+	log.debug("lockInitialize")
   // reset listeners
   unsubscribe()
   unschedule()
@@ -2091,6 +2095,7 @@ def userAskAlexaPage() {
 
 
 def getLockUsage(lock_id) {
+	log.debug("getLockUsage", lock_id)
   return state."lock${lock_id}".usage
 }
 
@@ -2754,6 +2759,7 @@ def alarmStatusHandler(event) {
 }
 
 def codeEntryHandler(evt) {
+	log.debug("codeEntryHandler")
   //do stuff
   debugger("Caught code entry event! ${evt.value.value}")
 
