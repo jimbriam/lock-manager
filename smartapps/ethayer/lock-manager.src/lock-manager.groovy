@@ -174,14 +174,14 @@ def initializeMain() {
   def children = getLockApps()
   log.debug "there are ${children.size()} locks"
 
-  state.initializeComplete = true
   state.appVersion = "2.1.3"
+	state.setupCompleted = true
 
   subscribe(location, "mode", locationHandler)
 }
 
 def mainLangingPage() {
-  if (state.initializeComplete) {
+  if (state.setupCompleted) {
     mainPage()
   } else {
     mainSetupPage()
@@ -840,7 +840,7 @@ def getLockMaxCodes() {
 }
 
 def isInit() {
-  return (state.initializeComplete)
+  return (state.setupCompleted)
 }
 
 def lockErrorPage() {
