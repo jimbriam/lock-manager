@@ -259,6 +259,7 @@ def mainPage() {
 }
 
 def setAppType(appType) {
+	log.debug("appType: ${appType}")
   if (!state.appType) {
     state.appType = appType
   }
@@ -478,6 +479,9 @@ def notificationPageDescription() {
   return msg
 }
 
+/**
+	get a LockApp
+**/
 def getLockAppById(id) {
   def lockApp = false
   def lockApps = getLockApps()
@@ -518,6 +522,10 @@ def getLockAppByIndex(params) {
   return lockApp
 }
 
+
+/**
+	Get the number of availableSlots for a lock
+**/
 def availableSlots(selectedSlot) {
   def options = []
   def userApps = getUserApps()
@@ -568,7 +576,9 @@ def keypadMatchingUser(usedCode){
   }
   return correctUser
 }
-
+/**
+	find a userApp that is assigned to a lockApp slot
+**/
 def findAssignedChildApp(lock, slot) {
   def childApp
   def userApps = getUserApps()
@@ -602,6 +612,9 @@ def getKeypadApps() {
   return childApps
 }
 
+/**
+	Gets the lockApps 
+**/
 def getLockApps() {
   def childApps = []
   def children = getChildApps()
@@ -612,7 +625,10 @@ def getLockApps() {
   }
   return childApps
 }
-
+/**
+	TODO: setAccess?
+	setCodes for the lockApps
+**/
 def setAccess() {
   def lockApps = getLockApps()
   lockApps.each { lockApp ->
@@ -713,7 +729,9 @@ def isUniqueLock() {
   }
   return unique
 }
-
+/**
+	A lock landing page where the lockDevice is checked to see if it is a uniqueLock
+**/
 def lockLandingPage() {
   if (lock) {
     def unique = isUniqueLock()
@@ -811,6 +829,9 @@ def lockHelloHomePage() {
   }
 }
 
+/**
+	Check to see if the lockDevice knows how mamy slots are supported by the device
+**/
 def getLockMaxCodes() {
   // Check to see if the Lock Handler knows how many slots there are
   if (lock?.hasAttribute('maxCodes')) {
@@ -874,11 +895,16 @@ def lockNotificationPage() {
   }
 }
 
+/**
+	TODO: Why is this here? is it just so that the installComplete?
+**/
 def queSetupLockData() {
   state.installComplete = true
   runIn(10, setupLockData)
 }
-
+/**
+	gets the UsersAppps and initializes lock data for that UserApp
+**/
 def setupLockData() {
   debugger('run lock data setup')
 
@@ -893,22 +919,27 @@ def setupLockData() {
 
   initSlots()
 }
-
+/** Initiate the codeSlots
+	TODO: Should be ProcessCodeSlots
+**/
 def initSlots() {
-  def codeState = 'unknown'
+  def codeState = 'unknown' //initialize codeStatus to 'UNKNOWN'
   if (state.codes == null) {
     // new install!  Start learning!
     state.codes = [:]
     state.requestCount = 0
     // skipSweep may be null
     if (skipSweep != true) {
+	
       state.sweepMode = 'Enabled'
       codeState = 'sweep'
     }
+	// TODO: refreshComplete seems to be the check to see if the codeSlots have been refreshed
     state.refreshComplete = true
     state.supportsKeypadData = true
     state.pinLength = false
   }
+  //TODO: Isn't this already taken care of in getMaxCodes?
   if (lock?.hasAttribute('pinLength')) {
     state.pinLength = lock.latestValue('pinLength')
   }
@@ -959,7 +990,9 @@ def initSlots() {
     setCodes()
   }
 }
-
+/**
+	Sweep the codes on the lockDevice
+	**/
 def sweepSequance() {
   def codeSlots = lockCodeSlots()
   def array = []
@@ -1005,7 +1038,9 @@ def withinAllowed() {
 def allowedAttempts() {
   return lockCodeSlots() * 2
 }
-
+/**
+	Update a code slot, triggered by an event
+**/
 def updateCode(event) {
   log.debug("updateCode event: ${event}")
 	def data = ""
@@ -1024,16 +1059,20 @@ def updateCode(event) {
   debugger("name: ${name} slot: ${slot} data: ${data} description: ${description} activity: ${activity[0]}")
 
   def code = null
+  //find the userApp of the slot
   def userApp = findSlotUserApp(slot)
   if (userApp) {
     code = userApp.userCode
+	log.debug("code: ${code}")
   }
 
   def codeState
   def previousCodeState = state.codes["slot${slot}"].codeState
+  
+  // SLOT 251 is master code
   switch (slot) {
-    case 251:
-      // code is duplicate of master
+  // code is duplicate of master
+    case 251:    
       if (state.incorrectSlots.size() == 1) {
         // the only slot to set must be the incorrect one!
         def errorSlot = state.incorrectSlots[0]
@@ -1060,6 +1099,7 @@ def updateCode(event) {
           break
         case 'changed':
         case 'set':
+			//check the state of the code before the updateCode
           switch(previousCodeState) {
             case 'set':
             case 'recovery':
@@ -1094,6 +1134,7 @@ def updateCode(event) {
       }
   } //end switch(slot)
 
+//check status of the codeState 
   switch (codeState) {
     case 'correct':
       if (previousCodeState == 'set') {
@@ -1116,8 +1157,10 @@ def updateCode(event) {
           break
       }
       debugger('Unexpected change!  Scheduling code logic.')
+	  log.debug("sending Codes to set  setCodes: ${setCodes}")
       runIn(25, setCodes)
       break
+	  
     case 'failed':
       if (previousCodeState == 'unset') {
         // I'm not sure if this would ever happen...
@@ -1593,7 +1636,7 @@ def sendMessage(message) {
 	Assign a name to a lock slot and ?
 **/
 def nameSlot(slot, name) {
-	log.debug("nameSlot slot: ${slot} name: ${name})
+	log.debug("nameSlot slot: ${slot} name: ${name}")
   if (state.codes["slot${slot}"].namedSlot != name) {
     state.codes["slot${slot}"].namedSlot = name
     lock.nameSlot(slot, name) //TODO: Why is this needed
