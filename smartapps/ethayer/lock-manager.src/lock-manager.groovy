@@ -66,7 +66,6 @@ preferences {
 def appPageWizard(params) {
   def appType = state.appType
 	log.debug("appPageWizard params: ", appType.toString())
-
   if (!appType) {
     if (params.type) {
       // inital set app type
@@ -723,7 +722,6 @@ def lockInitialize() {
 }
 
 /* Check if a lock is unique*/
-
 def isUniqueLock() {
   def unique = true
   if (!state.installComplete) {
@@ -2439,7 +2437,7 @@ def rightNow() {
   def now = new Date().format("yyyy-MM-dd'T'HH:mm:ss.SSSZ", timeZone())
   return Date.parse("yyyy-MM-dd'T'HH:mm:ss.SSSZ", now)
 }
-
+#endregion
 def getLockById(params) {
   return parent.locks.find{it.id == id}
 }
