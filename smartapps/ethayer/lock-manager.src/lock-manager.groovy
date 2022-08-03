@@ -146,15 +146,19 @@ def updated() {
 def uninstalled() {
   switch (state.appType) {
     case 'lock':
+		//TODO: implement lock unininstall
       break
     case 'user':
       userUninstalled()
       break
     case 'keypad':
+		//TODO: implement keypad uninstall 
       break
     case 'api':
+		//TODO: implement api uninstaall
       break
     default:
+		//TODO: implemenet main uninstall
       break
   }
 }
