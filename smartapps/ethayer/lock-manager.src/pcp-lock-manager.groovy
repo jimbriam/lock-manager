@@ -97,6 +97,7 @@ def appPageWizard(params) {
 }
 
 def installed() {
+	log.debug("installed: ${state.appType}")
   // find the correct installer
   switch (state.appType) {
     case 'lock':
@@ -120,6 +121,7 @@ def installed() {
 
 def updated() {
   // find the correct updater
+  log.debug("updated: ${state.appType}")
   switch (state.appType) {
     case 'lock':
       lockUpdated()
@@ -162,6 +164,7 @@ def uninstalled() {
 
 
 def installedMain() {
+	log.debug("installedMain")
   initializeMain()
 }
 
