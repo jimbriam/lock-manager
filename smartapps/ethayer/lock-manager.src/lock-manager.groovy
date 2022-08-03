@@ -2643,6 +2643,7 @@ def sendAskAlexaUser(message) {
                     unit: "User//${userName}")
 }
 
+#region KEYPAD
 def installedKeypad() {
   debugger("Keypad Installed with settings: ${settings}")
   initializeKeypad()
@@ -2895,3 +2896,4 @@ def sendSHMEvent(armMode) {
     sendLocationEvent(event)
   }
 }
+#endregion
