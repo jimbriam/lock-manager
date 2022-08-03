@@ -1007,9 +1007,15 @@ def allowedAttempts() {
 }
 
 def updateCode(event) {
-  def data = new JsonSlurper().parseText(event.data)
-  def name = event.name
-  def description = event.descriptionText
+  log.debug("updateCode event: ${event}")
+	def data = ""
+	def name = ""
+	def description = ""
+	//def activity = 
+	// if (event != null) {
+  //data = new JsonSlurper().parseText(event?.data == null ? "" : event?.data  )
+  name = event.name
+  description = event.descriptionText
   def activity = event.value =~ /(\d{1,3}).(\w*)/
   def slot = activity[0][1].toInteger()
   def activityType = activity[0][2]
