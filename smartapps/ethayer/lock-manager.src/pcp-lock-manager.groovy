@@ -1122,7 +1122,7 @@ def updateCode(event) {
   }
 }
 /**
-	TODO: Document Recovery
+	TODO: Document Recovery of a code slot
 **/
 def failRecovery(slot, previousCodeState, userApp) {
   def attempts = state.codes["slot${slot}"].recoveryAttempts
