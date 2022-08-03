@@ -62,7 +62,7 @@ preferences {
 
 def appPageWizard(params) {
   def appType = state.appType
-	log.debug("appPageWizard params: ", appType.toString())
+ //	log.debug("appPageWizard params: ", appType.toString())
   if (!appType) {
     if (params.type) {
       // inital set app type
