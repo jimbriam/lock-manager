@@ -2320,7 +2320,7 @@ def isCorrectMode() {
     return true
   }
 }
-#region TIME
+
 	def timeZone() {
   def zone
   if(location.timeZone) {
@@ -2457,7 +2457,7 @@ def rightNow() {
   def now = new Date().format("yyyy-MM-dd'T'HH:mm:ss.SSSZ", timeZone())
   return Date.parse("yyyy-MM-dd'T'HH:mm:ss.SSSZ", now)
 }
-#endregion
+
 def getLockById(params) {
   return parent.locks.find{it.id == id}
 }
@@ -2607,7 +2607,7 @@ def getLockUserInfo(lock) {
   para
 }
 
-#region ALEXA
+
 // User Ask Alexa
 def userAlexaSettings() {
   if (alexaAccess || alexaLock || alexaAccessStart || alexaAccessEnd || alexaStartTime || alexaEndTime) {
@@ -2661,8 +2661,7 @@ def sendAskAlexaUser(message) {
                     descriptionText: message,
                     unit: "User//${userName}")
 }
-#endregion
-#region KEYPAD
+
 def installedKeypad() {
   debugger("Keypad Installed with settings: ${settings}")
   initializeKeypad()
@@ -2915,4 +2914,3 @@ def sendSHMEvent(armMode) {
     sendLocationEvent(event)
   }
 }
-#endregion
