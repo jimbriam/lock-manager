@@ -191,6 +191,7 @@ def initializeMain() {
 	state.setupCompleted = true
 	state.appVersion = "2.1.3"
 
+	//default subscribe call
   subscribe(location, "mode", locationHandler)
 }
 
