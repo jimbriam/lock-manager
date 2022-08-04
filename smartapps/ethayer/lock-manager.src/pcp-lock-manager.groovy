@@ -205,7 +205,10 @@ def initializeMain() {
 	state.appVersion = "2.1.3"
 
 	//default subscribe call
-  subscribe(location, "mode", locationHandler)
+	subscribe(location, "mode", locationHandler)
+	
+	log.debug("====initializeMainEND")
+}
 }
 
 def mainLandingPage() {
