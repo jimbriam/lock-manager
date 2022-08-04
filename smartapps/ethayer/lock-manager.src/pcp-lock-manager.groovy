@@ -980,12 +980,12 @@ def setupLockData() {
     state.requestCount = 0
   }
 
-  initSlots()
+  ProcessLockSlots()
 }
 /** Initiate the codeSlots
-	TODO: Should be ProcessCodeSlots
+	TODO: Should be ProcessLockSlots
 **/
-def initSlots() {
+def ProcessLockSlots() {
   def codeState = 'unknown' //initialize codeStatus to 'UNKNOWN'
   if (state.codes == null) {
     // new install!  Start learning!
