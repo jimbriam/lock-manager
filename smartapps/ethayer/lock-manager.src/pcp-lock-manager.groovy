@@ -198,7 +198,7 @@ def initializeMain() {
   // global variables: state, settings
 	//TODO: store users, locks, lockSlots, userSlots inside state
 	state.users = []
-	state.locks = []
+	state.lockApps = []
 	state.lockSlots = []
 	state.userSlots = []
 	state.setupCompleted = true
@@ -660,18 +660,41 @@ def getKeypadApps() {
 }
 
 /**
-	Gets the lockApps 
+	Gets the lockApps from state or walk the graph of children apps
 **/
 def getLockApps() {
-  def childApps = []
-  def children = getChildApps()
-  children.each { child ->
-    if (child.theAppType() == 'lock') {
-      childApps.push(child)
-    }
-  }
-  return childApps
+  def returnLockApps = null;
+if (state.lockApps == null | state.lockApps == false) {
+	returnLockApps = getGraphLockApps()
+} else {
+	returnLockApps = state.lockApps
 }
+return returnLockApps
+}
+/**
+	Iterates thru all child apps to retrieve the apps with 'lock' type
+**/
+def getGraphLockApps() {
+	log.debug("getGraphLockApps")
+	def lockApps = []
+	// def userApps = []
+	// def keypadApps = []
+	def children = getChildApps()
+	children.each { child ->
+		if (child.theAppType() == 'lock') {
+			lockApps.add(child)  
+		}
+		// if (child.theAppType() == 'user') {
+			// userApps.add(child)
+		// }
+		// if (child.theAppType() == 'keypad') {
+			// keypadApps.add(child)
+		// }	
+  }
+  
+  return lockApps
+}
+
 /**
 	TODO: setAccess?
 	setCodes for the lockApps
