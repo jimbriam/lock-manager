@@ -1047,13 +1047,41 @@ def queSetupLockData() {
 	gets the UsersApps and initializes lock data for that UserApp 
 **/
 def setupLockData() {
-  debugger('run lock data setup')
-
-  def lockUsers = parent.getUserApps()
-  lockUsers.each { lockUser ->
-    // initialize data attributes for this lock.
-    lockUser.initializeLockData()
-  }
+	debugger('run lock data setup')
+	log.debug("1046 parent.getUserApps()")
+	def userApps = parent.getUserApps()
+	//def userApps = getUserApps() //TODO: Why get parentUserApps?
+  log.debug("1048 userApps.each ${userApps.size()}")
+	//TODO: Use new approach to setting up lock data for the user
+	/*if (parent) { //context is childApp (user, lock, keypad)
+		//add current user to lock
+		lockApps = parent.getLockApps()
+		//iterate thru the lock apps
+		lockApps.each { targetLockApp -> 
+			targetLockApp.initializeLockData()
+		}
+		//create lockSlots for this user on each lockApp
+	}
+	else {
+		//current context is main 
+		//add all users to the lockApps
+		lockApps = getLockApps()
+		userApps = getUserApps()
+		
+		lockApps.each { targetLockApp -> 
+			userApps.each { targetUserApp -> 
+			targetLockApp.initializeLockData(targetUserApp)
+			}
+		}
+		
+	}*/
+	
+	// DEPRECATE: OLD STYLE
+	userApps.each { lockUser ->
+	   //initialize data attributes for this lock.
+		log.debug("lockUser: ${lockUser}")
+		lockUser.initializeLockData()
+	  }
   if (state.requestCount == null) {
     state.requestCount = 0
   }
