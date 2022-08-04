@@ -311,12 +311,6 @@ def mainPage() {
   }
 }
 
-def setAppType(appType) {
-	log.debug("appType: ${appType}")
-  if (!state.appType) {
-    state.appType = appType
-  }
-}
 
 def userPageOptions(count) {
   def options = []
@@ -723,7 +717,14 @@ def debuggerOn() {
 }
 
 /**
-	TODO: whats this used for?
+	TODO: Whats this used for? setAppType
+**/
+def setAppType(appType) {
+	log.debug("746 appType: ${appType}")
+  if (!state.appType) {
+    state.appType = appType
+  }
+}
 **/
 def theAppType() {
 	log.debug("theAppType parent: ${parent}")
