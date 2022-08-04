@@ -629,14 +629,15 @@ def keypadMatchingUser(usedCode){
 	find a userApp that is assigned to a lockApp slot
 **/
 def findAssignedChildApp(lock, slot) {
-  def childApp
+	log.debug("findAssignedChildApp lock:${lock} slot: ${slot}")
+  def assignedUserApp
   def userApps = getUserApps()
   userApps.each { child ->
     if (child.userSlot?.toInteger() == slot) {
-      childApp = child
+      assignedUserApp = child
     }
   }
-  return childApp
+  return assignedUserApp
 }
 
 /**
