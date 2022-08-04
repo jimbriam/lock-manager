@@ -1031,6 +1031,62 @@ def setupLockData() {
 
   ProcessLockSlots()
 }
+/**
+	Initialize a lockApp for a userApp
+	**/
+def initializeLockData() {
+  debugger('Initialize lock data for user.')
+  def lockApps = parent.getLockApps()
+  log.debug("parent: ${parent} lockApps: ${lockApps.size()}")
+  
+  lockApps.each { lockApp ->
+    def lockId = lockApp.lock.id
+	def stateKey = "lock${lockId}"
+	
+	def lockSlot = [ id: "${lockId}", enabled: true, usage: 0, slotIndex: -1, status: "unknown", targetLockApp: lockApp, targetUser: parent, assigned: false,lockDeviceSet: false, lockDeviceUnset: false ]
+	
+	//here is where we want to use lockSlots
+    if (state."lock${lockId}" == null) { //if the stateKey does not exist in the state global variable
+      state."lock${lockId}" = [:]
+      state."lock${lockId}".enabled = true
+      state."lock${lockId}".usage = 0
+    } else { //lockSlot exists already
+		//TODO: try to retrieve from state our lockSlot or recreate the lockSlot
+		lockSlot = state.lockSlots.find { lockSlot.id == stateKey }
+		log.debug("1970 lockSlot: ${lockSlot}")
+		if (lockSlot != null) {
+			lockSlot = [ id: "${lockId}", enabled: state."lock${lockId}".enabled, usage: state."lock${lockId}".usage, slotIndex: -1, status: "unknown", targetLockApp: lockApp, targetUser: parent, assigned: false, lockDeviceSet: false, lockDeviceUnset: false ]
+		}
+		
+	}
+	
+	//Save the lockSlot
+  }
+
+}
+
+def initializeLocks() {
+  debugger('User asking for lock init')
+  def lockApps = parent.getLockApps()
+  lockApps.each { lockApp ->
+    lockApp.queSetupLockData()
+  }
+}
+
+def incrementLockUsage(lockId) {
+  // this is called by a lock app when this user
+  // used their code to lock the door
+  state."lock${lockId}".usage = state."lock${lockId}".usage + 1
+}
+
+def lockReset(lockId) {
+  state."lock${lockId}".enabled = true
+  state."lock${lockId}".disabledReason = ''
+  def lockApp = parent.getLockAppById(lockId)
+  lockApp.enableUser(userSlot)
+}
+
+
 /** Initiate the codeSlots
 	TODO: Should be ProcessLockSlots
 **/
@@ -1919,44 +1975,6 @@ def calendarEnd() {
   if (calEndPhrase) {
     location.helloHome.execute(calEndPhrase)
   }
-}
-/**
-	Initialize a lockApp for a userApp
-	**/
-def initializeLockData() {
-  debugger('Initialize lock data for user.')
-  def lockApps = parent.getLockApps()
-  log.debug("parent: ${parent} lockApps: ${lockApps.size()}"
-  
-  lockApps.each { lockApp ->
-    def lockId = lockApp.lock.id
-    if (state."lock${lockId}" == null) {
-      state."lock${lockId}" = [:]
-      state."lock${lockId}".enabled = true
-      state."lock${lockId}".usage = 0
-    }
-  }
-}
-
-def initializeLocks() {
-  debugger('User asking for lock init')
-  def lockApps = parent.getLockApps()
-  lockApps.each { lockApp ->
-    lockApp.queSetupLockData()
-  }
-}
-
-def incrementLockUsage(lockId) {
-  // this is called by a lock app when this user
-  // used their code to lock the door
-  state."lock${lockId}".usage = state."lock${lockId}".usage + 1
-}
-
-def lockReset(lockId) {
-  state."lock${lockId}".enabled = true
-  state."lock${lockId}".disabledReason = ''
-  def lockApp = parent.getLockAppById(lockId)
-  lockApp.enableUser(userSlot)
 }
 
 def userLandingPage() {
