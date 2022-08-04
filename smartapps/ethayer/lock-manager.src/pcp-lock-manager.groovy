@@ -213,6 +213,30 @@ def initializeMain() {
 	Program the codes manually
 **/
 def programmaticalCodes() {
+	/*
+	user = {
+		//def LockSlotsAssigned = {},
+		int PinCode = -1,
+		def Name = "UNASSIGNED",
+		def LongName = "UNASSIGNED USER NAME", 
+		boolean Enabled	= true
+		int LockSlotNumber = -1 // A user can only be attached to a single lockSlot
+	}
+	lockSlot = {
+		int SlotIndex,
+		String ProgrammingStatus,
+		def TargetLock,
+		def AssignedUser,
+		int UserSlotUnlockCount,
+		boolean Enabled,
+		String DisabledReason, 
+		boolean Assigned,
+		boolean LockDeviceSet,
+		boolean LockDeviceNotSet
+	}
+	lock = {
+		SlotsForLock = []
+	}*/
 //def a01 =[ id : "1A01", PinCode: 104517, Name: "1A01", LongName: "1A01", Enabled: true, LockSlotsAssigned: null]
 //def a02 = [ id : "1A02", PinCode: 151719, Name: "1A02", LongName: "1A02", Enabled: true, LockSlotsAssigned: null]
 //pcp.add(a01)
@@ -1929,7 +1953,7 @@ def userInitialize() {
   unsubscribe()
   unschedule()
 
-  // setup data
+  // setup user data
   initializeLockData()
   initializeLocks()
 
@@ -2887,3 +2911,29 @@ def codeEntryHandler(evt) {
 }
 
 /*** END KEYPAD **/
+/** Target DataStructure		
+class User {
+	List<LockSlot> AssignedLockSlot
+	int PinCode
+	String Name
+	String PrettyName
+	boolean Enabled
+	//A user can only be associated to a single App slot
+}
+class LockSlot {
+	//List<Lock, User> 
+	int SlotIndex 
+	String Status
+	Lock TargetLock
+	User AssignedUser
+	int UserSlotUnlockCount
+	boolean Enabled
+	String DisableReason
+	boolean Assigned
+	boolean LockDeviceSet
+	boolean LockDeviceUnset
+}
+class Lock {
+	List<LockSlot> SlotsForLock
+}
+**/
