@@ -1,5 +1,5 @@
 definition(
-  name: 'PCP Lock Manager',
+  name: 'Lock Manager',
   namespace: 'ethayer',
   author: 'Erik Thayer',
   parent: parent ? "ethayer: Lock Manager" : null,
