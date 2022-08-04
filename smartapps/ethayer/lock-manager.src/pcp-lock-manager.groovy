@@ -1123,6 +1123,7 @@ def ProcessLockSlots() {
   def codeState = 'unknown' //initialize codeStatus to 'UNKNOWN'
   if (state.codes == null) {
     // new install!  Start learning!
+	//TODO: Read the codes already installed on the lockDevice and save into our app
     state.codes = [:]
     state.requestCount = 0
     // skipSweep may be null
