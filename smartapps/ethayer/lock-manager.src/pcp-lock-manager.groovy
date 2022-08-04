@@ -1095,9 +1095,16 @@ def sweepSequance() {
 def withinAllowed() {
   return (state.requestCount <= allowedAttempts())
 }
-
+/**
+	Return the number of attempts allowed? (what is an attempt?)
+	**/
 def allowedAttempts() {
-  return lockCodeSlots() * 2
+	def maximumAttempts = 6  //default to 6
+	
+	maximumAttempts = lockCodeSlots() * 2
+	
+	return maximumAttempts
+
 }
 /**
 	Update a code slot, triggered by an event
