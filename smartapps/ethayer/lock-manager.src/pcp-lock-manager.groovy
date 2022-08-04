@@ -1048,7 +1048,7 @@ def initializeLockData() {
 	def lockSlot = [ id: "${lockId}", enabled: true, usage: 0, slotIndex: -1, status: "unknown", targetLockApp: lockApp, targetUser: parent, assigned: false,lockDeviceSet: false, lockDeviceUnset: false ]
 	
 	//here is where we want to use lockSlots
-    if (state."lock${lockId}" == null) { //if the stateKey does not exist in the state global variable
+    if (state."lock${lockId}" == null) { // the stateKey does not exist in the state global variable
       state."lock${lockId}" = [:]
       state."lock${lockId}".enabled = true
       state."lock${lockId}".usage = 0
