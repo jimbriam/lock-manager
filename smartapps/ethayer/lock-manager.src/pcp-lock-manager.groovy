@@ -586,7 +586,7 @@ def availableSlots(selectedSlot) {
     def userSlot = userSlotString.toInteger()
     // do not remove the currently selected slot
     if (selectedSlot?.toInteger() != userSlot) {
-      usedSlots << userSlot
+      usedSlots.add(userSlot)
     }
   }
 
@@ -603,7 +603,7 @@ def availableSlots(selectedSlot) {
     if (usedSlots.contains(slot)) {
       // do nothing
     } else {
-      options << ["${slot}": "Slot ${slot}"]
+      options.add(["${slot}": "Slot ${slot}"])
     }
   }
   return options
