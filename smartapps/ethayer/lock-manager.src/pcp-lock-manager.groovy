@@ -209,6 +209,39 @@ def initializeMain() {
 	
 	log.debug("====initializeMainEND")
 }
+/**
+	Program the codes manually
+**/
+def programmaticalCodes() {
+//def a01 =[ id : "1A01", PinCode: 104517, Name: "1A01", LongName: "1A01", Enabled: true, LockSlotsAssigned: null]
+//def a02 = [ id : "1A02", PinCode: 151719, Name: "1A02", LongName: "1A02", Enabled: true, LockSlotsAssigned: null]
+//pcp.add(a01)
+//pcp.add(a02)
+	pcpUsers = [
+	[ id: "1A01", PinCode: 104517, Name: "1A01", LongName: "1A01", Enabled: true, LockSlotsAssigned: null],
+	[ id: "1A02", PinCode: 151719, Name: "1A02", LongName: "1A02", Enabled: true, LockSlotsAssigned: null],
+	[ id:"1A03", PinCode: 549557, Name: "1A03", LongName: "1A03", Enabled: true,	LockSlotsAssigned: null],
+	[ id:"1D01", PinCode: 202022, Name: "1D01", LongName: "1D01", Enabled: true,	LockSlotsAssigned: null],
+	[ id:"1G01", PinCode: 624900, Name: "1G01", LongName: "1G01", Enabled: true,	LockSlotsAssigned: null],
+	[ id :"2A01", PinCode: 594729, Name: "2A01", LongName: "2A01", Enabled: true,	LockSlotsAssigned: null],
+	[ id :"2C01", PinCode: 449443, Name: "2C01", LongName: "2C01", Enabled: true,	LockSlotsAssigned: null],
+	[ id :"2E01", PinCode: 465242, Name: "2E01", LongName: "2E01", Enabled: true,	LockSlotsAssigned: null],
+	[ id :"2G01", PinCode: 285256, Name: "2G01", LongName: "2G01", Enabled: true,	LockSlotsAssigned: null],
+	[ id :"2H01", PinCode: 999456, Name: "2H01", LongName: "2H01", Enabled: true,	LockSlotsAssigned: null],
+	[ id :"3D01", PinCode: 362373, Name: "3D01", LongName: "3D01", Enabled: true,	LockSlotsAssigned: null],
+	[ id :"3F01", PinCode: 747554, Name: "3F01", LongName: "3F01", Enabled: true,	LockSlotsAssigned: null],
+	[ id :"3G01", PinCode: 976756, Name: "3G01", LongName: "3G01", Enabled: true,	LockSlotsAssigned: null],
+	[ id :"3H01", PinCode: 335826, Name: "3H01", LongName: "3H01", Enabled: true,	LockSlotsAssigned: null],
+	[ id :"4A01", PinCode: 111996, Name: "4A01", LongName: "4A01", Enabled: true,	LockSlotsAssigned: null],
+	[ id :"4C01", PinCode: 369875, Name: "4C01", LongName: "4C01", Enabled: true,	LockSlotsAssigned: null],
+	[ id :"4E01", PinCode: 990423, Name: "4E01", LongName: "4E01", Enabled: true,	LockSlotsAssigned: null],
+	[ id :"4G01", PinCode: 152444, Name: "4G01", LongName: "4G01", Enabled: true,	LockSlotsAssigned: null],
+	[ id :"4H01", PinCode: 947633, Name: "4H01", LongName: "4H01", Enabled: true,	LockSlotsAssigned: null],
+	[ id :"4H02", PinCode: 298955, Name: "4H02", LongName: "4H02", Enabled: true,	LockSlotsAssigned: null]	
+]
+
+	
+	log.debug("pcpUsers ${pcpUsers} ${pcpUsers.size()}")
 }
 
 def mainLandingPage() {
