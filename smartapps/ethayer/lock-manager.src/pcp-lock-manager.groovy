@@ -898,7 +898,7 @@ def lockSetupPage() {
 
 def lockMainPage() {
   dynamicPage(name: "lockMainPage", title: "Lock Settings", install: true, uninstall: true) {
-    getLockMaxCodes()
+    getLockDeviceMaxLockSlots()
     section("Settings") {
       if (state.installComplete) {
         if (state.sweepMode == 'Enabled') {
@@ -971,7 +971,7 @@ def lockHelloHomePage() {
 /**
 	Check to see if the lockDevice knows how mamy slots are supported by the device
 **/
-def getLockMaxCodes() {
+def getLockDeviceMaxLockSlots() {
   // Check to see if the Lock Handler knows how many slots there are
   if (lock?.hasAttribute('maxCodes')) {
     def slotCount = lock.latestValue('maxCodes')
