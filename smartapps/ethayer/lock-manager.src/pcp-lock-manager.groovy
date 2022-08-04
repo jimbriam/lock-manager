@@ -1925,15 +1925,22 @@ def totalUsage() {
 	get number of code slots 
 **/
 def getMaxAppLockSlots() {
-  // default to 30
-  int codeSlots = 30
+  
+  int codeSlots = 30  // default to 30
   log.debug("getMaxAppLockSlots")
-  //TODO: Where is slotCount being declared?
-  if (slotCount) {
-    // return the user defined value
-    codeSlots = slotCount
-  } else if (state?.codeSlots) {
-    codeSlots = state.codeSlots.toInteger()
+  //DONE: Where is slotCount being declared?
+  // DONE: Refactor, this relies on slotCount being declared/instantiated higher in the execution
+  // if (slotCount) {
+   //// return the user defined value
+    // codeSlots = slotCount
+	// } else 
+	 // 
+	if (state.codeSlots) { //check if app has codeSlots instantiated
+		codeSlots = state.codeSlots.toInteger()
+	else { 
+		//otherwise interrogate the device
+		codeSlots = getLockDeviceMaxLockSlots()
+	}
   }
   return codeSlots
 }
