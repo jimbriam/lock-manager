@@ -1098,26 +1098,39 @@ def initializeLockData() {
   
   lockApps.each { lockApp ->
     def lockId = lockApp.lock.id
+	log.debug("lockId: ${lockId}")
 	def stateKey = "lock${lockId}"
+	def lockSlot = null
 	
-	def lockSlot = [ id: "${lockId}", enabled: true, usage: 0, slotIndex: -1, status: "unknown", targetLockApp: lockApp, targetUser: parent, assigned: false,lockDeviceSet: false, lockDeviceUnset: false ]
 	
 	//here is where we want to use lockSlots
     if (state."lock${lockId}" == null) { // the stateKey does not exist in the state global variable
-      state."lock${lockId}" = [:]
-      state."lock${lockId}".enabled = true
-      state."lock${lockId}".usage = 0
+		//old style lockSlot
+		state."lock${lockId}" = [:]
+		state."lock${lockId}".enabled = true
+		state."lock${lockId}".usage = 0
+	  
+		//newStyle lockSlot
+		lockSlot = [ id: "${lockId}", enabled: true, usage: 0, slotIndex: -1, status: "unknown", targetLockApp: lockApp, targetUser: parent, assigned: false,lockDeviceSet: false, lockDeviceUnset: false ]
     } else { //lockSlot exists already
-		//TODO: try to retrieve from state our lockSlot or recreate the lockSlot
-		lockSlot = state.lockSlots.find { lockSlot.id == stateKey }
-		log.debug("1970 lockSlot: ${lockSlot}")
-		if (lockSlot != null) {
+		//DONE: try to retrieve from state our lockSlot or recreate the lockSlot
+		// find the lockSlot with id  == stateKey
+		lockSlot = state.lockSlots.find { tLockSlot.id == stateKey }
+		log.debug("1115 lockSlot: ${lockSlot}")
+			
+		if (lockSlot == null) { //the lockSlot does not exist in global state variable
+			
 			lockSlot = [ id: "${lockId}", enabled: state."lock${lockId}".enabled, usage: state."lock${lockId}".usage, slotIndex: -1, status: "unknown", targetLockApp: lockApp, targetUser: parent, assigned: false, lockDeviceSet: false, lockDeviceUnset: false ]
+			
 		}
-		
+		lockSlot.enabled = true
+		lockSlot.usage = 0
+	}
+	//DONE: check that the lockSlot is not already saved in the state global variable
+	if (lockSlot != null & state.lockSlots.find{ tLockSlot.id == stateKey} == null){ //Add the lockSlot to the state global variable
+		state.lockSlots.add(lockSlot)
 	}
 	
-	//Save the lockSlot
   }
 
 }
