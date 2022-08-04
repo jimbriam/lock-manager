@@ -527,7 +527,7 @@ def notificationPageDescription() {
 }
 
 /**
-	get a LockApp
+	get a LockApp by providing an id
 **/
 def getLockAppById(id) {
   def lockApp = false
