@@ -364,7 +364,7 @@ def lockInfoPage(params) {
         def complete = lockApp.isCodeComplete()
         if (!complete) {
           def completeCount = lockApp.sweepProgress()
-          def totalSlots = lockApp.lockCodeSlots()
+          def totalSlots = lockApp.getMaxAppLockSlots()
           def percent = Math.round((completeCount/totalSlots) * 100)
           def estimatedMinutes = ((totalSlots - completeCount) * 6) / 60
           def p = ""
@@ -420,7 +420,7 @@ def lockInfoPage(params) {
       }
       section('Lock Settings') {
         def pinLength = lockApp.pinLength()
-        def lockCodeSlots = lockApp.lockCodeSlots()
+        def lockCodeSlots = lockApp.getMaxAppLockSlots()
         if (pinLength) {
           paragraph "Required Length: ${pinLength}"
         }
@@ -617,7 +617,7 @@ def availableSlots(selectedSlot) {
 
   // set slot count to the max available
   lockApps.each { lockApp ->
-    def appSlotCount = lockApp.lockCodeSlots()
+    def appSlotCount = lockApp.getMaxAppLockSlots()
     // do not remove the currently selected slot
     if (appSlotCount > slotCount) {
       slotCount = appSlotCount
@@ -903,7 +903,7 @@ def lockMainPage() {
       if (state.installComplete) {
         if (state.sweepMode == 'Enabled') {
           def completeCount = sweepProgress()
-          def totalSlots = lockCodeSlots()
+          def totalSlots = getMaxAppLockSlots()
           def percent = Math.round((completeCount/totalSlots) * 100)
           def estimatedMinutes = ((totalSlots - completeCount) * 6) / 60
           def p = ""
@@ -916,7 +916,7 @@ def lockMainPage() {
           paragraph p
         }
       } else {
-        def totalSlots = lockCodeSlots()
+        def totalSlots = getMaxAppLockSlots()
         def estimatedMinutes = (totalSlots * 6) / 60
         def para = ""
         if (!skipSweep) {
@@ -1190,7 +1190,7 @@ def ProcessLockSlots() {
   }
 
   def userCodeSlots = getUserSlotList()
-  def maxCountCodeSlots = lockCodeSlots()
+  def maxCountCodeSlots = getMaxAppLockSlots()
 
 	//
   (1..maxCountCodeSlots).each { slot ->
@@ -1234,7 +1234,7 @@ def ProcessLockSlots() {
 	Sweep the codes on the lockDevice
 	**/
 def sweepSequance() {
-  def codeSlots = lockCodeSlots()
+  def codeSlots = getMaxAppLockSlots()
   def array = []
   def count = 0
   def completeCount = 0
@@ -1280,7 +1280,7 @@ def withinAllowed() {
 def allowedAttempts() {
 	def maximumAttempts = 6  //default to 6
 	
-	maximumAttempts = lockCodeSlots() * 2
+	maximumAttempts = getMaxAppLockSlots() * 2
 	
 	return maximumAttempts
 
@@ -1923,10 +1923,10 @@ def totalUsage() {
 /**
 	get number of code slots 
 **/
-def lockCodeSlots() {
+def getMaxAppLockSlots() {
   // default to 30
   int codeSlots = 30
-  log.debug("lockCodeSlots")
+  log.debug("getMaxAppLockSlots")
   //TODO: Where is slotCount being declared?
   if (slotCount) {
     // return the user defined value
