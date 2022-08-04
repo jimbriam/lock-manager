@@ -1190,9 +1190,10 @@ def ProcessLockSlots() {
   }
 
   def userCodeSlots = getUserSlotList()
-  def codeSlots = lockCodeSlots()
+  def maxCountCodeSlots = lockCodeSlots()
 
-  (1..codeSlots).each { slot ->
+	//
+  (1..maxCountCodeSlots).each { slot ->
     def control = 'available'
     if (state.codes["slot${slot}"] == null) {
       state.codes["slot${slot}"] = [:]
