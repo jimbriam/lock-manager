@@ -1927,6 +1927,7 @@ def lockCodeSlots() {
   // default to 30
   int codeSlots = 30
   log.debug("lockCodeSlots")
+  //TODO: Where is slotCount being declared?
   if (slotCount) {
     // return the user defined value
     codeSlots = slotCount
