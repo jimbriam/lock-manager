@@ -575,6 +575,7 @@ def getLockAppByIndex(params) {
 	
 **/
 def availableSlots(selectedSlot) {
+	log.debug("availableSlots selectedSlot: ${selectedSlot}")
   def options = []
   def userApps = getUserApps()
   def lockApps = getLockApps()
@@ -680,7 +681,7 @@ return returnLockApps
 	Iterates thru all child apps to retrieve the apps with 'lock' type
 **/
 def getGraphLockApps() {
-	log.debug("getGraphLockApps")
+	log.debug("getGraphLockApps=")
 	def lockApps = []
 	// def userApps = []
 	// def keypadApps = []
@@ -703,7 +704,7 @@ def getGraphLockApps() {
 	Iterates thru all child apps to retrieve the apps with 'user' type
 **/
 def getGraphUserApps() {
-	log.debug("getGraphUserApps")
+	log.debug("=getGraphUserApps")
 	// def lockApps = []
 	def userApps = []
 	// def keypadApps = []
@@ -1014,6 +1015,7 @@ def lockNotificationPage() {
 	RUNS setupLockData after setting global state.installComplete to true
 **/
 def queSetupLockData() {
+	log.debug("queSetupLockData")
   state.installComplete = true
   runIn(10, setupLockData)
 }
@@ -1031,7 +1033,7 @@ def setupLockData() {
   if (state.requestCount == null) {
     state.requestCount = 0
   }
-
+log.debug("1079 ProcessLockSlots")
   ProcessLockSlots()
 }
 /**
