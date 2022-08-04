@@ -1008,13 +1008,14 @@ def lockNotificationPage() {
 
 /**
 	TODO: Why is this here? is it just so that the installComplete?
+	RUNS setupLockData after setting global state.installComplete to true
 **/
 def queSetupLockData() {
   state.installComplete = true
   runIn(10, setupLockData)
 }
 /**
-	gets the UsersAppps and initializes lock data for that UserApp
+	gets the UsersApps and initializes lock data for that UserApp 
 **/
 def setupLockData() {
   debugger('run lock data setup')
