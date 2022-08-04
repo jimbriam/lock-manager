@@ -571,7 +571,7 @@ def getLockAppByIndex(params) {
 
 
 /**
-	Get the number of availableSlots for a User
+	Get the number array as "enumerated options" of availableSlots for a User
 	
 **/
 def availableSlots(selectedSlot) {
