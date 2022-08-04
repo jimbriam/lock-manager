@@ -642,11 +642,10 @@ def findAssignedChildApp(lock, slot) {
 **/
 def getUserApps() {
   def returnUserApps = []
-  def children = getChildApps()
-  children.each { child ->
-    if (child.theAppType() == 'user') {
-      returnUserApps.push(child)
-    }
+  if (state.userApps == null | state.userApps == false){
+	returnUserApps = getGraphUserApps()
+  } else {
+	returnUserApps = state.userApps
   }
   return returnUserApps
 }
@@ -696,6 +695,29 @@ def getGraphLockApps() {
   }
   
   return lockApps
+}
+/**
+	Iterates thru all child apps to retrieve the apps with 'user' type
+**/
+def getGraphUserApps() {
+	log.debug("getGraphUserApps")
+	// def lockApps = []
+	def userApps = []
+	// def keypadApps = []
+	def children = getChildApps()
+	children.each { child ->
+		// if (child.theAppType() == 'lock') {
+			// lockApps.add(child)  
+		// }
+		if (child.theAppType() == 'user') {
+			userApps.add(child)
+		}
+		// if (child.theAppType() == 'keypad') {
+			// keypadApps.add(child)
+		// }	
+  }
+  
+  return userApps
 }
 
 /**
