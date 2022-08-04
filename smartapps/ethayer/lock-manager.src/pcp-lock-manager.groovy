@@ -249,7 +249,7 @@ def mainLandingPage() {
     mainPage()
   } else {
     mainSetupPage()
-  }
+	}
 }
 
 def mainSetupPage() {
