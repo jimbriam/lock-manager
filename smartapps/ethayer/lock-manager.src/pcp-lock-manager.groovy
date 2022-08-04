@@ -725,6 +725,8 @@ def setAppType(appType) {
     state.appType = appType
   }
 }
+/**
+	TODO: whats this used for? theAppType
 **/
 def theAppType() {
 	log.debug("theAppType parent: ${parent}")
