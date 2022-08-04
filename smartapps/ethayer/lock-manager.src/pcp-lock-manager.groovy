@@ -1184,6 +1184,7 @@ def ProcessLockSlots() {
   }
 
   // Check to see if the Lock Handler knows how many slots there are
+  // TODO: Replace with call to getLockDeviceMaxLockSlots
   if (lock?.hasAttribute('maxCodes')) {
     def slotCount = lock.latestValue('maxCodes')
     state.codeSlots = slotCount
