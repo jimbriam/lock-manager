@@ -1666,11 +1666,15 @@ def collectCodesToSet() {
 	
 **/
 def getUserSlotList() {
+	log.debug("getUserSlotList")
   def userSlots = []
-  def lockUsers = parent.getUserApps()
-  lockUsers.each { lockUser ->
-  //TODO: What the hell is that << notation on an array?
-    userSlots << lockUser.userSlot.toInteger()
+  def parentUserApps = parent.getUserApps()
+  parentUserApps.each { lockUser ->
+  //DONE: the << notation on an array means add to array
+  //TODO: a userApp has a property userSlot
+	def userSlotNumber = lockUser.userSlot.toInteger()
+	log.debug("lockUser.userSlot.toInteger(): ${userSlotNumber}")
+    userSlots.add(userSlotNumber)
   }
   return userSlots
 }
