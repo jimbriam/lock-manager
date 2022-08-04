@@ -582,7 +582,8 @@ def availableSlots(selectedSlot) {
   def usedSlots = []
 
   userApps.each { userApp ->
-    def userSlot = userApp.userSlot.toInteger()
+	def userSlotString = userApp.userSlot == "" ? -1 : userApp.userSlot
+    def userSlot = userSlotString.toInteger()
     // do not remove the currently selected slot
     if (selectedSlot?.toInteger() != userSlot) {
       usedSlots << userSlot
