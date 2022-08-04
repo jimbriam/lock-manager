@@ -1926,6 +1926,7 @@ def totalUsage() {
 def lockCodeSlots() {
   // default to 30
   int codeSlots = 30
+  log.debug("lockCodeSlots")
   if (slotCount) {
     // return the user defined value
     codeSlots = slotCount
