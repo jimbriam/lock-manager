@@ -722,13 +722,20 @@ def debuggerOn() {
   return enableDebug
 }
 
+/**
+	TODO: whats this used for?
+**/
 def theAppType() {
-	log.debug("theAppType")
+	log.debug("theAppType parent: ${parent}")
+	def returnAppType = "main"
   if (parent) {
-    return state.appType
+	returnAppType = state.appType
   } else {
-    return 'main'
+    //do Nothing
+	//return 'main'
   }
+  log.debug("returnAppType: ${returnAppType}")
+  return returnAppType
 }
 
 def debugger(message) {
