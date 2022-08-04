@@ -637,26 +637,29 @@ def findAssignedChildApp(lock, slot) {
   return childApp
 }
 
+/**
+	Gets the userApps from state or walk the graph of children apps
+**/
 def getUserApps() {
-  def childApps = []
+  def returnUserApps = []
   def children = getChildApps()
   children.each { child ->
     if (child.theAppType() == 'user') {
-      childApps.push(child)
+      returnUserApps.push(child)
     }
   }
-  return childApps
+  return returnUserApps
 }
 
 def getKeypadApps() {
-  def childApps = []
+  def returnKeyPadApps = []
   def children = getChildApps()
   children.each { child ->
     if (child.theAppType() == 'keypad') {
-      childApps.push(child)
+      returnKeyPadApps.push(child)
     }
   }
-  return childApps
+  return returnKeyPadApps
 }
 
 /**
