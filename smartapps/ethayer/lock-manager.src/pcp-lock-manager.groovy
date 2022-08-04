@@ -1919,10 +1919,14 @@ def calendarEnd() {
     location.helloHome.execute(calEndPhrase)
   }
 }
-
+/**
+	Initialize a lockApp for a userApp
+	**/
 def initializeLockData() {
   debugger('Initialize lock data for user.')
   def lockApps = parent.getLockApps()
+  log.debug("parent: ${parent} lockApps: ${lockApps.size()}"
+  
   lockApps.each { lockApp ->
     def lockId = lockApp.lock.id
     if (state."lock${lockId}" == null) {
