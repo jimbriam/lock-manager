@@ -181,7 +181,20 @@ def initializeMain() {
 	def lockApps = getLockApps()
 	def numberOfLocks = lockApps.size()
 	log.debug("there are " + numberOfLocks + " locks")
-  
+	
+	//existing persistent variables
+	def codes = state.codes
+	def requestCount = state.requestCount
+	def sweepMode = state.sweepMode
+	def refreshComplete = state.refreshComplete
+	def supportsKeypadData = state.supportsKeypadData
+	def pinLength = state.pinLength
+	def codeSlots = state.codeSlots
+	def incorrectSlots = state.incorrectSlots
+	
+	
+	log.debug("=====initializeMain")
+	log.debug("codes: ${codes} REQUESTCOUNT: ${requestCount} SWEEPMODE: ${sweepMode} PINLENGTH: ${pinLength} CODESLOTS: {codeSlots} INCORRECTSLOTS: ${incorrectSlots} REFRESHCOMPLETE: ${refreshComplete} ")
   // global variables: state, settings
 	//TODO: store users, locks, lockSlots, userSlots inside state
 	state.users = []
